@@ -32,14 +32,9 @@ public class BankEmployer extends Thread {
         }
     }
 
-    private void sleep () throws InterruptedException {
+    private synchronized void performClientOperation () throws InterruptedException {
         if (queue.isEmpty())
             wait();
-    }
-
-
-    private synchronized void performClientOperation () throws InterruptedException {
-        sleep();
         BankClient bankClient = queue.getFirst();
         try {
             wait(bankClient.getService_time());
